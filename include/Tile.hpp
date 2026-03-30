@@ -1,3 +1,4 @@
+#pragma once
 #include <cstdint>
 #include <ostream>
 
@@ -26,7 +27,7 @@ class Tile {
 
  public:
   Tile() = default;
-  Tile(std::int32_t value) : m_value(static_cast<Number>(value)) {}
+  explicit Tile(std::int32_t value) : m_value(static_cast<Number>(value)) {}
 
   bool isEmpty() const;
   std::int32_t getNum() const;
