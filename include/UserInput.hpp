@@ -1,16 +1,46 @@
 #pragma once
+#include <termios.h>
+#include <unistd.h>
+
 #include <iostream>
 
 #include "Direction.hpp"
 
 namespace UserInput {
+
   enum Commands { up, left, down, right, quit, max_commands };
 
-  inline Commands getCommand() {
-    char commandChar{};
+  inline char getCharWithoutDelimiterCharacter() {
+    termios oldTermios{};
+    // Store old termios structure
+    tcgetattr(STDIN_FILENO, &oldTermios);
 
+    termios newTermios{oldTermios};
+
+    // Put the terminal in non canonical mode to avoid typing delimiters
+    newTermios.c_lflag &= static_cast<tcflag_t>(-ICANON);
+    // Put the terminal in ECHO mode, to hide input characters
+    newTermios.c_lflag &= static_cast<tcflag_t>(-ECHO);
+
+    // Wait until we have received 1 byte (1 char) with no timeout
+    newTermios.c_cc[VMIN] = 1;
+    newTermios.c_cc[VTIME] = 0;
+
+    // Apply new changes immediately with TCSANOW
+    tcsetattr(STDIN_FILENO, TCSANOW, &newTermios);
+
+    char ch{};
+    std::cin >> ch;
+
+    // Recover old termios structure
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldTermios);
+
+    return ch;
+  }
+
+  inline Commands getCommand() {
     while (true) {
-      std::cin >> commandChar;
+      char commandChar{getCharWithoutDelimiterCharacter()};
       switch (commandChar) {
         case 'w':
           return Commands::up;
@@ -45,7 +75,5 @@ namespace UserInput {
     }
   }
 
-  inline void clearScreen() {
-      std::cout << "\033[2J\033[H";
-  }
+  inline void clearScreen() { std::cout << "\033[2J\033[H"; }
 }  // namespace UserInput
