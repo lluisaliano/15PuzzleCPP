@@ -20,7 +20,7 @@ namespace UserInput {
 
     // Put the terminal in non canonical mode to avoid typing delimiters
     newTermios.c_lflag &= static_cast<tcflag_t>(-ICANON);
-    // Put the terminal in ECHO mode, to hide input characters
+    // Put the terminal in non ECHO mode, to hide input characters
     newTermios.c_lflag &= static_cast<tcflag_t>(-ECHO);
 
     // Wait until we have received 1 byte (1 char) with no timeout
@@ -56,6 +56,7 @@ namespace UserInput {
           return Commands::quit;
         default: {
           constexpr std::string_view message{"Invalid Command: "};
+          // Padding for message and the pressed char
           UserOutput::printHorizontalSpace(message.size() + 1);
           std::cout << message << commandChar << "\n\n";
           continue;
