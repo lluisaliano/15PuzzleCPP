@@ -19,9 +19,9 @@ namespace UserInput {
     termios newTermios{oldTermios};
 
     // Put the terminal in non canonical mode to avoid typing delimiters
-    newTermios.c_lflag &= static_cast<tcflag_t>(-ICANON);
+    newTermios.c_lflag &= static_cast<tcflag_t>(~ICANON);
     // Put the terminal in non ECHO mode, to hide input characters
-    newTermios.c_lflag &= static_cast<tcflag_t>(-ECHO);
+    newTermios.c_lflag &= static_cast<tcflag_t>(~ECHO);
 
     // Wait until we have received 1 byte (1 char) with no timeout
     newTermios.c_cc[VMIN] = 1;
