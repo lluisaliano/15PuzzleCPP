@@ -31,6 +31,8 @@ class Tile {
 
   bool isEmpty() const;
   std::int32_t getNum() const;
+
+  bool operator==(const Tile&) const = default;
 };
 
 std::ostream& operator<<(std::ostream& out, const Tile& tile);

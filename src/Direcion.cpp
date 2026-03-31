@@ -6,7 +6,7 @@ Direction::Direction(Direction::Directions direction) {
   m_direction = direction;
 }
 
-Direction Direction::operator-() {
+Direction Direction::operator-() const {
   switch (this->m_direction) {
     case up:
       return Direction(down);

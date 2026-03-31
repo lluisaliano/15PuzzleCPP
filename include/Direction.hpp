@@ -27,6 +27,6 @@ class Direction {
   }
 
   bool operator==(const Direction&) const = default;
-  Direction operator-();
+  Direction operator-() const;
   friend std::ostream& operator<<(std::ostream&, const Direction&);
 };
