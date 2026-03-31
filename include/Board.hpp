@@ -8,7 +8,8 @@
 
 class Board {
  private:
-  std::array<Tile, 16> m_board{};
+ // Using row major indexing
+ std::array<Tile, 16> m_board{};
 
   bool pointExists(const Point&);
   bool pointIsValid(const Point&, const Direction&);

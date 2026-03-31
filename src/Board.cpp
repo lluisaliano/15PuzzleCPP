@@ -66,11 +66,19 @@ bool Board::pointExists(const Point& point) {
 std::ostream& operator<<(std::ostream& out, const Board& board) {
   constexpr std::size_t boardColSize{4};  // 4 rows
   UserOutput::printVerticalSpace(boardColSize);
+
   for (int i{0}; i < board.rows; ++i) {
     constexpr std::size_t boardRowSize{4 * 4};  // 4 tiles, 4 columns each
     UserOutput::printHorizontalSpace(boardRowSize);
+
     for (int j{0}; j < board.cols; ++j) {
-      out << board.m_board[static_cast<std::size_t>(j + i * board.cols)];
+      auto index{static_cast<std::size_t>(j + i * board.cols)};
+      // If Tile is in the correct position, make it cyan
+      if (board.m_board[index] == solvedBoard.m_board[index]) {
+        out << "\033[1;36m" << board.m_board[index] << "\033[0m";
+      } else {
+        out << board.m_board[index];
+      }
     }
     out << '\n';
   }
