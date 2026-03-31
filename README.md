@@ -12,6 +12,8 @@ The program generates a solvable 4x4 puzzle, renders in the terminal, and lets t
 - Uses non canonical terminal flag, so moves are read instantly without pressing Enter.
 - Centers the board and messages in the terminal for a cleaner text UI.
 
+  ![15Puzzle](https://github.com/user-attachments/assets/b6bdd096-7b3e-43a8-a486-f4b54748f58c)
+
 ## How It Works
 
 The project models the puzzle with a few small classes:
