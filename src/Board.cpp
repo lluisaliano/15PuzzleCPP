@@ -1,4 +1,4 @@
-#include <Board.hpp>
+#include "Board.hpp"
 
 Board::Board() {
   for (int i{0}; i < 15; ++i) {

@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+#include "Direction.hpp"
+
 namespace UserInput {
   enum Commands { up, left, down, right, quit, max_commands };
 
@@ -11,22 +13,35 @@ namespace UserInput {
       std::cin >> commandChar;
       switch (commandChar) {
         case 'w':
-          std::cout << "Valid Command: " << 'w' << '\n';
           return Commands::up;
         case 'a':
-          std::cout << "Valid Command: " << 'a' << '\n';
           return Commands::left;
         case 's':
-          std::cout << "Valid Command: " << 's' << '\n';
           return Commands::down;
         case 'd':
-          std::cout << "Valid Command: " << 'd' << '\n';
           return Commands::right;
+        // Exit Game
         case 'q':
           std::cout << "Valid Command: " << 'q' << '\n';
           std::cout << "\n\nBye!\n\n";
           std::exit(0);
       }
+    }
+  }
+
+  inline Direction getDirectionFromCommand(const Commands command) {
+    switch (command) {
+      case up:
+        return Direction(Direction::up);
+      case left:
+        return Direction(Direction::left);
+      case down:
+        return Direction(Direction::down);
+      case right:
+        return Direction(Direction::right);
+      default:
+        std::cerr << "No valid direction command" << '\n';
+        std::exit(1);
     }
   }
 }  // namespace UserInput
