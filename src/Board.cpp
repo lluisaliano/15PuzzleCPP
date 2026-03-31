@@ -27,7 +27,6 @@ bool Board::moveTile(const Direction& direction) {
   // Get point in the opposite direction
   Point adjacentPoint{emptyTilePoint.getAdjacentPoint(-direction)};
   if (!pointExists(adjacentPoint)) {
-    std::cerr << "This Tile does not exist\n";
     return false;
   }
 
@@ -38,6 +37,21 @@ bool Board::moveTile(const Direction& direction) {
 
   return true;
 }
+
+// As a completly random puzzle may be unsolvable, we will randomize the
+// puzzle by getting random valid directions and applying them conitnuously
+void Board::randomizeBoard() {
+  for (int i{0}; i < s_totalRandomMovements; ++i) {
+    Direction randomDirection{Direction::getRandom()};
+    // If direction is valid, count it as a normal movement, otherwise don't
+    if (moveTile(randomDirection)) {
+      continue;
+    }
+    --i;
+  }
+}
+
+bool Board::isSolved() const { return (*this == solvedBoard); }
 
 bool Board::pointExists(const Point& point) {
   auto x{point.getX()};

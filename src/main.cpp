@@ -5,6 +5,7 @@
 
 int main() {
   Board board{};
+  board.randomizeBoard();
   std::cout << board;
 
   while (true) {
@@ -13,10 +14,16 @@ int main() {
     auto result{board.moveTile(direction)};
     // Avoid printing the board when doing a wrong movement
     if (!result) {
+      std::cout << "This movement is not possible\n";
       continue;
     }
     UserInput::clearScreen();
     std::cout << board;
+
+    if (board.isSolved()) {
+      std::cout << "\n\nYou won!\n\n";
+      return 0;
+    }
   }
 
   return 0;
