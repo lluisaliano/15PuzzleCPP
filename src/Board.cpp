@@ -74,6 +74,7 @@ std::ostream& operator<<(std::ostream& out, const Board& board) {
     }
     out << '\n';
   }
+  out << '\n';
 
   return out;
 }
