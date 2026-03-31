@@ -17,6 +17,8 @@ class Direction {
  public:
   Direction(Directions);
 
+  Directions getDirection() const { return m_direction; }
+
   // Return Random Direction
   static Direction getRandom() {
     auto val{Random::distribution<int>(0, max_directions - 1)};
@@ -24,6 +26,7 @@ class Direction {
     return Direction{static_cast<Directions>(val)};
   }
 
+  bool operator==(const Direction&) const = default;
   Direction operator-();
   friend std::ostream& operator<<(std::ostream&, const Direction&);
 };
