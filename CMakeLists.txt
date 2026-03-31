@@ -10,7 +10,7 @@ file(GLOB SRC_FILES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/*.cpp"
 )
 
-add_executable(main ${SRC_FILES})
+add_executable(15Puzzle ${SRC_FILES})
 
 target_compile_options(15Puzzle PRIVATE
   -Wall -Wextra -Wpedantic -Wsign-conversion -Wconversion
