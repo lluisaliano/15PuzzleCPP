@@ -44,4 +44,8 @@ namespace UserInput {
         std::exit(1);
     }
   }
+
+  inline void clearScreen() {
+      std::cout << "\033[2J\033[H";
+  }
 }  // namespace UserInput

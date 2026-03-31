@@ -13,7 +13,8 @@ Board::Board() {
   m_board[15] = Tile(0);
 }
 
-void Board::moveTile(const Direction& direction) {
+// Return true if movement was correct
+bool Board::moveTile(const Direction& direction) {
   auto it{std::ranges::find(m_board, Tile(0))};
   int emptyTileIndex{static_cast<int>(std::distance(m_board.begin(), it))};
 
@@ -21,19 +22,21 @@ void Board::moveTile(const Direction& direction) {
   int row{emptyTileIndex / rows};
   int col{emptyTileIndex % cols};
 
-  Point p{row, col};
+  Point emptyTilePoint{row, col};
 
   // Get point in the opposite direction
-  Point adjacentPoint{p.getAdjacentPoint(-direction)};
+  Point adjacentPoint{emptyTilePoint.getAdjacentPoint(-direction)};
   if (!pointExists(adjacentPoint)) {
     std::cerr << "This Tile does not exist\n";
+    return false;
   }
 
-  // FIX: This indexing allows jumps at the end and begining of rows
   int newTileIndex{adjacentPoint.getY() + adjacentPoint.getX() * cols};
 
   std::swap(m_board[static_cast<std::size_t>(newTileIndex)],
             m_board[static_cast<std::size_t>(emptyTileIndex)]);
+
+  return true;
 }
 
 bool Board::pointExists(const Point& point) {
@@ -46,10 +49,6 @@ bool Board::pointExists(const Point& point) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Board& board) {
-  for (int i{0}; i < g_consoleLines; ++i) {
-    out << '\n';
-  }
-
   for (int i{0}; i < board.cols; ++i) {
     for (int j{0}; j < board.rows; ++j) {
       out << board.m_board[static_cast<std::size_t>(j + i * board.cols)];

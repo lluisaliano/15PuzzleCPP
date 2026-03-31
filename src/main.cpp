@@ -10,7 +10,12 @@ int main() {
   while (true) {
     auto command{UserInput::getCommand()};
     auto direction{UserInput::getDirectionFromCommand(command)};
-    board.moveTile(direction);
+    auto result{board.moveTile(direction)};
+    // Avoid printing the board when doing a wrong movement
+    if (!result) {
+      continue;
+    }
+    UserInput::clearScreen();
     std::cout << board;
   }
 
