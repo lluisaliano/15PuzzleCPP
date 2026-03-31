@@ -12,18 +12,26 @@ int main() {
 
   while (true) {
     auto command{UserInput::getCommand()};
+
+    if (command == UserInput::Commands::quit) {
+      UserOutput::printCenteredMessage("Bye!");
+      return 0;
+    }
+
     auto direction{UserInput::getDirectionFromCommand(command)};
     auto result{board.moveTile(direction)};
     // Avoid printing the board when doing a wrong movement
     if (!result) {
-      std::cout << "This movement is not possible\n";
+      constexpr std::string_view message{"This movement is not possible\n"};
+      UserOutput::printHorizontalSpace(message.size());
+      std::cout << message << '\n';
       continue;
     }
     UserOutput::clearScreen();
     std::cout << board;
 
     if (board.isSolved()) {
-      std::cout << "\n\nYou won!\n\n";
+      UserOutput::printCenteredMessage("You won!");
       return 0;
     }
   }

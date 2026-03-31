@@ -34,4 +34,11 @@ namespace UserOutput {
 
   inline void clearScreen() { std::cout << "\033[2J\033[H"; }
 
+  inline void printCenteredMessage(std::string_view message) {
+    clearScreen();
+    printVerticalSpace(1);
+    printHorizontalSpace(message.size());
+    std::cout << message << '\n';
+    printVerticalSpace(1);
+  }
 }  // namespace UserOutput

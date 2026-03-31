@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Direction.hpp"
+#include "UserOutput.hpp"
 
 namespace UserInput {
 
@@ -52,9 +53,13 @@ namespace UserInput {
           return Commands::right;
         // Exit Game
         case 'q':
-          std::cout << "Valid Command: " << 'q' << '\n';
-          std::cout << "\n\nBye!\n\n";
-          std::exit(0);
+          return Commands::quit;
+        default: {
+          constexpr std::string_view message{"Invalid Command: "};
+          UserOutput::printHorizontalSpace(message.size() + 1);
+          std::cout << message << commandChar << "\n\n";
+          continue;
+        }
       }
     }
   }
@@ -75,5 +80,4 @@ namespace UserInput {
     }
   }
 
-  inline void clearScreen() { std::cout << "\033[2J\033[H"; }
 }  // namespace UserInput
