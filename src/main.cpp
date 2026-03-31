@@ -2,8 +2,10 @@
 
 #include "Board.hpp"
 #include "UserInput.hpp"
+#include "UserOutput.hpp"
 
 int main() {
+  UserOutput::clearScreen();
   Board board{};
   board.randomizeBoard();
   std::cout << board;
@@ -17,7 +19,7 @@ int main() {
       std::cout << "This movement is not possible\n";
       continue;
     }
-    UserInput::clearScreen();
+    UserOutput::clearScreen();
     std::cout << board;
 
     if (board.isSolved()) {

@@ -5,6 +5,7 @@
 
 #include "Direction.hpp"
 #include "Point.hpp"
+#include "UserOutput.hpp"
 
 Board::Board() {
   for (int i{0}; i < 15; ++i) {
@@ -63,8 +64,12 @@ bool Board::pointExists(const Point& point) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Board& board) {
-  for (int i{0}; i < board.cols; ++i) {
-    for (int j{0}; j < board.rows; ++j) {
+  constexpr std::size_t boardColSize{4};  // 4 rows
+  UserOutput::printVerticalSpace(boardColSize);
+  for (int i{0}; i < board.rows; ++i) {
+    constexpr std::size_t boardRowSize{4 * 4};  // 4 tiles, 4 columns each
+    UserOutput::printHorizontalSpace(boardRowSize);
+    for (int j{0}; j < board.cols; ++j) {
       out << board.m_board[static_cast<std::size_t>(j + i * board.cols)];
     }
     out << '\n';
