@@ -1,7 +1,8 @@
 #pragma once
-#include <Tile.hpp>
 #include <array>
 #include <ostream>
+
+#include "Tile.hpp"
 
 // Increase amount of new lines if your board isn't
 // at the very bottom of the console

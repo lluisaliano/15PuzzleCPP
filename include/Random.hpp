@@ -1,6 +1,7 @@
 #include <chrono>
 #include <random>
 #include <type_traits>
+
 namespace Random {
   inline std::mt19937 generate() {
     // Generate seed based on random Time and random Device
