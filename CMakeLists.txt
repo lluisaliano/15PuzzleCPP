@@ -6,7 +6,11 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(main src/main.cpp src/Tile.cpp src/Board.cpp src/Direcion.cpp)
+file(GLOB SRC_FILES CONFIGURE_DEPENDS
+    "${PROJECT_SOURCE_DIR}/src/*.cpp"
+)
+
+add_executable(main ${SRC_FILES})
 
 target_compile_options(15Puzzle PRIVATE
   -Wall -Wextra -Wpedantic -Wsign-conversion -Wconversion
